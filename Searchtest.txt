@@ -1,0 +1,46 @@
+package com.moviedb.themoviedb;
+
+import static org.junit.Assert.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.moviedb.themoviedb.contoller.FrontController;
+
+public class SearchTest 
+{
+	@InjectMocks
+    private FrontController frontController;
+ 
+    private MockMvc mockMvc;
+ 
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(frontController).build();
+    }
+    @Test
+    public void trendingmoviestest() throws Exception {
+        this.mockMvc.perform(get("/trendingmovies")).andExpect(status().isOk());
+    }
+    @Test
+    public void upcomingmoviestest() throws Exception {
+        this.mockMvc.perform(get("/upcomingmovies")).andExpect(status().isOk());
+    }
+    @Test
+    public void searchbymovienametest() throws Exception {
+        this.mockMvc.perform(get("/searchmovies/Men in Black: International")).andExpect(status().isOk());
+    }
+    @Test
+    public void searchbypersontest() throws Exception {
+        this.mockMvc.perform(get("/searchmovies/Salman Khan")).andExpect(status().isOk());
+    }
+    
+}
